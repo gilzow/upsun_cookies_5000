@@ -102,7 +102,8 @@ applications:
       # More information: https://docs.upsun.com/create-apps/hooks/hooks-comparison.html#deploy-hook
       deploy: |
         set -eux
-        # echo 'Put your deploy command here'
+        npm run build
+        flask db upgrade  
         
 
       # The post_deploy hook is run after the app container has been started and after it has started accepting requests.
