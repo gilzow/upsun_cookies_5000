@@ -1,0 +1,6 @@
+[run]
+source = upsun_cookies_5000
+omit = 
+    tests/*
+    autoapp.py
+
