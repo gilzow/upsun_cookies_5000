@@ -23,7 +23,7 @@
   "author": "Paul Gilzow",
   "license": "MIT",
   "engines": {
-    "node": ">="
+    "node": ">=18"
   },
   "bugs": {
     "url": "https://github.com/gilzow/upsun_cookies_5000/issues"
