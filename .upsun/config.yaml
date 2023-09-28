@@ -37,14 +37,14 @@ applications:
       commands:
         # The command to launch your app. If it terminates, it’s restarted immediately.
         # You can use the $PORT or the $SOCKET environment variable depending on the socket family of your upstream
-        start: "echo 'Put your web server command in here! You need to listen to \"$UNIX\" unix socket. Read more about it here: https://docs.upsun.com/create-apps/app-reference.html#web-commands'; sleep 60"
+        start: "flask run -p $PORT"
       # You can listen to a UNIX socket (unix) or a TCP port (tcp, default).
       # Whether your app should speak to the webserver via TCP or Unix socket. Defaults to tcp
       # More information: https://docs.upsun.com/create-apps/app-reference.html#where-to-listen
       upstream:
         # Whether your app should speak to the webserver via TCP or Unix socket. Defaults to tcp
         # More information: https://docs.upsun.com/create-apps/app-reference.html#where-to-listen
-        socket_family: unix
+        socket_family: tcp
       # Each key in locations is a path on your site with a leading /.
       # More information: https://docs.upsun.com/create-apps/app-reference.html#locations
       locations:
@@ -66,10 +66,10 @@ applications:
     # access:
 
     # Variables to control the environment. More information: https://docs.upsun.com/create-apps/app-reference.html#variables
-    # variables:
-    #   env:
-    #     # Add environment variables here that are static.
-    #     PYTHONUNBUFFERED: "1"
+    variables:
+      env:
+        # Add environment variables here that are static.
+        FLASK_APP: autoapp.py
 
     # Outbound firewall rules for the application. More information: https://docs.upsun.com/create-apps/app-reference.html#firewall
     # firewall:
@@ -94,7 +94,9 @@ applications:
       # More information: https://docs.upsun.com/create-apps/hooks/hooks-comparison.html#build-hook
       build: |
         set -eux
+        pip install --upgrade pip
         pip install -r requirements.txt
+        npm install 
         
       # The deploy hook is run after the app container has been started, but before it has started accepting requests.
       # More information: https://docs.upsun.com/create-apps/hooks/hooks-comparison.html#deploy-hook
