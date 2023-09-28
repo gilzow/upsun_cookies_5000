@@ -24,10 +24,10 @@ applications:
 
     # Mounts define directories that are writable after the build is complete.
     # More information: https://docs.upsun.com/create-apps/app-reference.html#mounts
-    # mounts:
-    #   "/.cache": # Represents the path in the app.
-    #     source: "local" # "local" sources are unique to the app, while "service" sources can be shared among apps.
-    #     source_path: "cache" # The subdirectory within the mounted disk (the source) where the mount should point.
+    mounts:
+      "upsun_cookies_5000/static": # Represents the path in the app.
+        source: "local" # "local" sources are unique to the app, while "service" sources can be shared among apps.
+        source_path: "static_assets" # The subdirectory within the mounted disk (the source) where the mount should point.
 
     # The web key configures the web server running in front of your app.
     # More information: https://docs.upsun.com/create-apps/app-reference.html#web
