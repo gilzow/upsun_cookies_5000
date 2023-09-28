@@ -7,4 +7,11 @@ export DB_DATABASE="$(echo $RELATIONSHIPS_JSON | jq -r '.postgresql[0].path')"
 export DB_USERNAME="$(echo $RELATIONSHIPS_JSON | jq -r '.postgresql[0].username')"
 export DB_PASSWORD="$(echo $RELATIONSHIPS_JSON | jq -r '.postgresql[0].password')"
 export DB_CONNECTION="$(echo $RELATIONSHIPS_JSON | jq -r '.postgresql[0].scheme')"
-export DATABASE_URL="${DB_CONNECTION}://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}"
+export DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}"
+
+export FLASK_ENV="${PLATFORM_ENVIRONMENT_TYPE}"
+export FLASK_DEBUG=$( [ "${PLATFORM_ENVIRONMENT_TYPE}" = "production" ] && echo 0 || echo 1)
+export LOG_LEVEL=$( [ "${PLATFORM_ENVIRONMENT_TYPE}" = "production" ] && echo "info" || echo "debug")
+export SEND_FILE_MAX_AGE_DEFAULT=$( [ "${PLATFORM_ENVIRONMENT_TYPE}" = "production" ] && echo 31556926 || echo 0)
+export SECRET_KEY="${PLATFORM_PROJECT_ENTROPY}"
+export GUNICORN_WORKERS=1
